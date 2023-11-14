@@ -1,0 +1,20 @@
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ccc;
+    max-width: 80%;
+    margin: 0 auto;
+}
+.logo{
+    font-weight: 900;
+    padding: 1rem;
+}
+nav ul{
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+}
+nav li{
+    padding: .5rem;
+}

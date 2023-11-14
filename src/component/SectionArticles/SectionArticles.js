@@ -5,7 +5,7 @@ const SectionArticles = (props)=>{
         <section>
             <h1>Mes fabuleux articles : </h1>
             {/* emplacement de mes cards articles */}
-            <div>
+            <div className="sectionArticles">
                 {
                     props.articlesProp.map((value,index)=>{
                         return(

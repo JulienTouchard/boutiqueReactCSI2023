@@ -1,0 +1,7 @@
+.CartItem {
+    display: flex;
+    justify-content: space-between;
+}
+.imgCartItem{
+    width: 50px;
+}
