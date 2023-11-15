@@ -12,9 +12,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       articlesApp: articles,
+      panier: [],
+      total: 0,
       qteDecrement: this.qteDecrement.bind(this),
       qteIncrement: this.qteIncrement.bind(this),
-      panier: [],
     }
   }
   // creation d'une methode pour décrementer un article
@@ -52,26 +53,30 @@ class App extends React.Component {
           return element;
         });
       }
-      if(!stop)tmpPanier=[...tmpPanier,{ "idPanier": id, "qtePanier": 1 }];
+      if (!stop) tmpPanier = [...tmpPanier, { "idPanier": id, "qtePanier": 1 }];
 
       this.setState({
         ...this.state,
         // mise à jour de ma qte pour i(id de l'article)
         articlesApp: tmpArticles,
         // mise à jour de mon panier avec l'ajout de i
-        panier: tmpPanier
+        panier: tmpPanier,
+        total: this.calculTotal()
+
       })
     }
   }
   // methode pour décrémenter la quentité d'article & supprimer l'id du panier
   qteIncrement = (id) => {
-    let stop = false;
     const tmpPanier = this.state.panier;
     const tmpArticles = this.state.articlesApp;
-    this.state.panier.map((value, index) => {
-      if (id === value && !stop) {
-        //  supprimer l'entrée correspondante dans tmpPanier avec splice et index
-        tmpPanier.splice(index, 1);
+    tmpPanier.map((value, index) => {
+      if (id === value.idPanier) {
+        tmpPanier[index].qtePanier--;
+        if (tmpPanier[index].qtePanier === 0) {
+          //  supprimer l'entrée correspondante dans tmpPanier avec splice et index
+          tmpPanier.splice(index, 1);
+        }
         // incrémenter l'article correspondant à l'id dans articlesApp
         tmpArticles[id].qte++;
         // setstate pour reajuster le panier et la qte (articlesApp)
@@ -80,13 +85,26 @@ class App extends React.Component {
           // mise à jour de ma qte pour i(id de l'article)
           articlesApp: tmpArticles,
           // mise à jour de mon panier avec l'ajout de i
-          panier: tmpPanier
+          panier: tmpPanier,
+          total:this.calculTotal()
         })
-        // arreter ma boucle
-        stop = true
       }
     })
-
+    
+  }
+  calculTotal = () => {
+    let tmptotal = 0;
+    if (this.state.panier.length > 0) {
+      this.state.panier.forEach((element) => {
+        tmptotal += (this.state.articlesApp[element.idPanier].price*element.qtePanier);
+      });
+    }
+    /* this.setState({
+      ...this.state,
+      total:tmptotal
+    }) */
+    console.log(tmptotal)
+    return tmptotal;
   }
   render() {
     return (
@@ -96,7 +114,7 @@ class App extends React.Component {
         </header>
 
         <main>
-          <Cart panier={this.state.panier}>Mon super Panier</Cart>
+          <Cart panier={this.state.panier} total={this.state.total}>Mon super Panier</Cart>
           <SectionArticles articlesProp={this.state.articlesApp}></SectionArticles>
         </main>
         <footer></footer>

@@ -17,7 +17,7 @@ const CartItem = (props) => {
         }
       }
       >-</span>
-      <span>{article.qte}</span>
+      <span>{props.qte}</span>
       <span
         onClick={
           () => {
@@ -25,7 +25,7 @@ const CartItem = (props) => {
           }
         }
       >+</span>
-      <span>{article.price}</span>
+      <span>{article.price*props.qte} €</span>
     </div>
   )
 };

@@ -11,11 +11,11 @@ const Cart = (props) => {
         {/* Affichage des elements de mon panier avec CartItem et à partir de props.panierLength */}
         {
             props.panier.map((value,index)=>{
-              console.log(index)
               return(<CartItem key={index} id={value.idPanier} qte={value.qtePanier}/>)
             })
         }
       </div>
+      <div>{props.total === 0 ? "Panier vide" : props.total}</div>
     </section>
   );
 }
