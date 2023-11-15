@@ -10,14 +10,20 @@ const CartItem = (props) => {
     <div className="CartItem">
       <div className='imgCartItem'><img src={article.url} alt="" /></div>
       <span>{article.name}</span>
-      <span>-</span>
+      <span
+       onClick={
+        () => {
+          boutiqueContext.qteIncrement(props.id)
+        }
+      }
+      >-</span>
       <span>{article.qte}</span>
       <span
-      onClick={
-        () => {
+        onClick={
+          () => {
             boutiqueContext.qteDecrement(props.id)
+          }
         }
-    }
       >+</span>
       <span>{article.price}</span>
     </div>

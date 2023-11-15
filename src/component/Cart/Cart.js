@@ -12,7 +12,7 @@ const Cart = (props) => {
         {
             props.panier.map((value,index)=>{
               console.log(index)
-              return(<CartItem key={index} id={value}/>)
+              return(<CartItem key={index} id={value.idPanier} qte={value.qtePanier}/>)
             })
         }
       </div>
